@@ -1,8 +1,8 @@
-Name,Data Type,Data Format Example,Offset,Length
+Name,Type,Format,Offset,Length
 Customer ID,String,N/A,1,20
 First Name,String,N/A,21,50
 Surname,String,N/A,71,50
 Mobile Phone,String,04xxxxxxxx,121,20
 Home Phone,String,04xxxxxxxx,141,20
 Work Phone,String,04xxxxxxxx,161,20
-DateOfBirth,String,YYYY-MM-DD,181,20
+DOB,Date,YYYY-MM-DD,181,20

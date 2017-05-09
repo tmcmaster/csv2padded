@@ -11,8 +11,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,8 +27,7 @@ public class CSV2Padded {
 	
 	public void saveDataCSV(String fileName, List<Map<String, String>> resultsMaps) throws IOException {
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(new File(fileName)))) {
-			String ss = specItems.stream().map(s -> s.getName()).collect(joining(","));
-			bw.write(ss + "\n");
+			bw.write(specItems.stream().map(s -> s.getName()).collect(joining(",")) + "\n");
 			bw.write(resultsMaps.stream().map(m -> specItems.stream().map(s -> m.getOrDefault(s.getName(),"")).collect(joining(","))).collect(joining("\n")) + "\n");
 		}
 	}
@@ -55,11 +58,7 @@ public class CSV2Padded {
 	private static List<Map<String, String>> getDataMap(String fileName) throws IOException {
 		try (BufferedReader br = new BufferedReader(new InputStreamReader(CSV2Padded.class.getClassLoader().getResourceAsStream(fileName)))) {
 		    String[] headers = br.readLine().split(",");
-		    return br.lines().map(s -> s.split(","))
-		                     .map(t -> range(0, t.length)
-		                    		 	 .boxed()
-		                               	 .collect(toMap(i -> headers[i], i -> t[i] ) ) )
-		                     .collect(toList());
+		    return br.lines().map(s -> s.split(",")).map(t -> range(0, t.length).boxed().collect(toMap(i -> headers[i], i -> t[i]))).collect(toList());
 		}		
 	}
 	
@@ -82,9 +81,7 @@ public class CSV2Padded {
 	}
 	
 	public static void print(Map<String,String> map1, Map<String,String> map2) {
-		map1.keySet().stream().map(k -> (String.format("| %-20.20s | %-20.20s | %-20.20s | %-5.5s |", 
-											k, map1.get(k), map2.get(k), (map1.getOrDefault(k, "").equals(map2.getOrDefault(k, ""))))))
-												.forEach(l -> System.out.println(l));
+		map1.keySet().stream().map(k -> String.format("| %-20.20s | %-20.20s | %-20.20s | %-5.5s |", k, map1.get(k), map2.get(k), map1.getOrDefault(k, "").equals(map2.getOrDefault(k, "")))).forEach(l -> System.out.println(l));
 	}
 
 	private static class SpecItem {
@@ -96,8 +93,8 @@ public class CSV2Padded {
 	
 		public SpecItem(Map<String,String> map) {
 			this.name = map.get("Name");
-			this.type = map.get("Data Type");
-			this.format = map.get("Data Format");
+			this.type = map.get("Type");
+			this.format = map.get("Format");
 			this.offset = Integer.parseInt(map.get("Offset"));
 			this.length = Integer.parseInt(map.get("Length"));
 		}
@@ -110,10 +107,6 @@ public class CSV2Padded {
 			return this.name;
 		}
 		
-		public String title() {
-			return padString(name);
-		}
-		
 		private String padString(String value) {
 			return String.format(String.format("%%-%d.%ds", length, length), (value == null ? "" : (value.length() < length ? value : value.substring(0,length))));
 		}
@@ -123,7 +116,7 @@ public class CSV2Padded {
 			int end = start + length;
 			try
 			{
-				String parsedValue =  (end < (value.length()-1) ? value.substring(start, end).trim() : "");
+				String parsedValue =  ((end <= value.length()) ? value.substring(start, end).trim() : "");
 				return parsedValue;
 			}
 			catch (StringIndexOutOfBoundsException e) {
@@ -149,7 +142,12 @@ public class CSV2Padded {
 		}};
 		
 		public static String formatDate(String value) {
-			return DateTimeFormatter.ofPattern("YYYY-MM-DD").format(LocalDate.parse(value));
+			DateFormat df = new SimpleDateFormat("YYYY-MM-DD");
+		    try {
+				return df.format(df.parse(value));
+			} catch (ParseException e) {
+				return "";
+			}
 		}
 		
 		public static String formatIdentity(String value) {
