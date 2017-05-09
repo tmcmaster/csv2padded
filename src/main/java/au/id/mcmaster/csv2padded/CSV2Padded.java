@@ -95,7 +95,7 @@ public class CSV2Padded {
 		private int length;
 	
 		public SpecItem(Map<String,String> map) {
-			this.name = (map.get("LI") == null ? map.get("Name") : map.get("LI"));
+			this.name = map.get("Name");
 			this.type = map.get("Data Type");
 			this.format = map.get("Data Format");
 			this.offset = Integer.parseInt(map.get("Offset"));
