@@ -1,0 +1,91 @@
+Name,Data Type,Data Format Example,Offset,Length,LI
+@CUSTOMER,String,N/A,1,20,Customer ID
+@ACCOUNT,String,N/A,21,50,Account
+FirstName,String,N/A,71,50,First Name
+Surname,String,N/A,121,50,Surname
+@NUMBER,String,04xxxxxxxx,171,20,Mobile Phone
+@NUMBER1,String,04xxxxxxxx,191,20,Home Phone
+@NUMBER2,String,04xxxxxxxx,211,20,
+DateOfBirth,String,YYYY-MM-DD,231,20,DOB
+SecondaryDOB,String,YYYY-MM-DD,251,20,Partner DOB
+State,String,N/A,271,10,
+@TIMEZONEACT,String,N/A,281,10,Zone
+CustomerClass,String,N/A,291,100,Make 
+DueDate,String,YYYY-MM-DD,391,20,
+WeSelectJira,String,N/A,411,100,Exit Page
+WeSelectID,String,N/A,511,20,Partner Previous HF
+WeSelectReferrer,String,N/A,531,100,Previous HF
+WeSelectTimeEntered,DateTime,YYYY-MM-DD HH:MM:SS,631,20,D2
+Motivator,String,N/A,651,100,Suburb
+ProductType,String,N/A,751,100,Policy Type
+@EMAIL,String,N/A,851,50,Email
+TimeCaptured,DateTime,YYYY-MM-DD HH:MM:SS,901,20,Time Created
+@TTIME,DateTime,YYYY-MM-DD HH:MM:SS,921,20,Time
+TimeLoaded,DateTime,YYYY-MM-DD HH:MM:SS,941,20,
+CurrentProvider,String,N/A,961,40,
+NextDiallableTime,DateTime,YYYY-MM-DD HH:MM:SS,1001,20,NextDiallableTime
+RequestedSchedTime,DateTime,YYYY-MM-DD HH:MM:SS,1021,20,D3
+CompositePriority,String,N/A,1041,20,
+PrimarySkill,String,N/A,1061,20,T8
+SecondarySkill,String,N/A,1081,20,
+Notes,String,N/A,1101,250,Notes
+Text1,String,N/A,1351,100,Model 
+Text2,String,N/A,1451,100,Work Phone
+Text3,String,N/A,1551,100,Partner Needs LHC
+Text4,String,N/A,1651,100,Results Page
+Text5,String,N/A,1751,100,hasexistingdamage
+Text6,String,N/A,1851,100,Gender 
+Text7,String,N/A,1951,100,T5
+Text8,String,N/A,2051,100,
+Text9,String,N/A,2151,100,Series
+Text10,String,N/A,2251,100,
+Number1,Number,N/A,2351,20,T1
+Number2,Number,N/A,2371,20,T2
+Number3,Number,N/A,2391,20,T3
+Number4,Number,N/A,2411,20,T4
+Number5,Number,N/A,2431,20,N1
+Number6,Number,N/A,2451,20,
+Number7,Number,N/A,2471,20,
+Number8,Number,N/A,2491,20,
+Number9,Number,N/A,2511,20,
+Number10,Number,N/A,2531,20,
+Date1,DateTime,YYYY-MM-DD HH:MM:SS,2551,20,
+Date2,DateTime,YYYY-MM-DD HH:MM:SS,2571,20,
+Date3,DateTime,YYYY-MM-DD HH:MM:SS,2591,20,
+Date4,DateTime,YYYY-MM-DD HH:MM:SS,2611,20,
+Date5,DateTime,YYYY-MM-DD HH:MM:SS,2631,20,
+Date6,DateTime,YYYY-MM-DD HH:MM:SS,2651,20,
+Date7,DateTime,YYYY-MM-DD HH:MM:SS,2671,20,
+Date8,DateTime,YYYY-MM-DD HH:MM:SS,2691,20,
+Date9,DateTime,YYYY-MM-DD HH:MM:SS,2711,20,
+Date10,DateTime,YYYY-MM-DD HH:MM:SS,2731,20,
+@OWNER,STRING,,0,20,
+@ATTEMPTSTATUS,NUMBER,,0,100,
+@JOB,STRING,,0,50,
+@NUMATTEMPTS,NUMBER,,0,100,
+@NUMDIALS,NUMBER,,0,100,
+@FILE,STRING,,0,100,
+@CBNUM,NUMBER,,0,100,
+@CBPHONE,STRING,,0,80,
+@CBMEMO,STRING,,0,80,
+@CBONCE,STRING,,0,1,
+@CBTIME,DATETIME,,0,100,
+@LIST,STRING,,0,64,
+@PASSCOUNT,NUMBER,,0,100,
+@PRODUCT,STRING,,0,64,
+@ATIME,NUMBER,,0,100,
+@CALLDUR,NUMBER,,0,100,
+@CALLTYPE,STRING,,0,7,
+@COMPLETE,NUMBER,,0,100,a
+@DNIS,STRING,,0,20,b
+@DTIME,DATETIME,,0,100,c
+@QUEUE,STRING,,0,6,d
+@RECNUM,NUMBER,,0,100,e
+@STATUS,STRING,,0,8,f
+@TTIME,DATETIME,,0,100,g
+@AGENT,STRING,,0,64,h
+@ATIME1,DATETIME,,0,100,i
+@STATUS1,STRING,,0,8,j
+@STATUS2,STRING,,0,8,k
+@STATUS3,STRING,,0,8,l
+@ATIME2,DATETIME,,0,100,m
