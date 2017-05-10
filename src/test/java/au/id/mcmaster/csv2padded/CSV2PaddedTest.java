@@ -1,11 +1,8 @@
 package au.id.mcmaster.csv2padded;
 
-import java.text.DateFormat;
+import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -17,15 +14,17 @@ public class CSV2PaddedTest {
 	public void test() {
 		try
 		{
-			CSV2Padded csv2padded = new CSV2Padded("schema.csv");
-			List<Map<String, String>> data = csv2padded.loadData("input-data.csv");
-			//data.get(2).keySet().stream().forEach(k -> System.out.println(String.format("%20.20s = %s", k, data.get(2).get(k))));
+			String schemaFile = "schema.csv";
+			String inputFile = "input-data.csv";
+			String outputFilePadded = "output-file.txt";
+			String outputFileCSV = "output-file.csv";
+			CSV2Padded csv2padded = new CSV2Padded(schemaFile);
+			List<Map<String, String>> data = csv2padded.loadData(inputFile);
 			List<String> paddedData = csv2padded.convert(data);
-			csv2padded.saveData("src/test/resources/output-file.txt", paddedData);
-			paddedData = csv2padded.getDataList("output-file.txt");
+			csv2padded.saveData("src/test/resources/" + outputFilePadded, paddedData);
+			paddedData = csv2padded.getDataList(outputFilePadded);
 			List<Map<String, String>> resultsMaps = csv2padded.parsePadded(paddedData);
-			//resultsMaps.get(2).keySet().stream().forEach(k -> System.out.println(String.format("%20.20s = %s", k, resultsMaps.get(2).get(k))));
-			csv2padded.saveDataCSV("src/test/resources/output-file.csv", resultsMaps);
+			csv2padded.saveDataCSV("src/test/resources/" + outputFileCSV, resultsMaps);
 			CSV2Padded.print(data, resultsMaps);
 			Assert.assertTrue(CSV2Padded.compare(data, resultsMaps));
 		}
@@ -37,11 +36,9 @@ public class CSV2PaddedTest {
 	}
 	
 	@Test
-	public void debugTesting() throws ParseException {
-	    DateFormat df = new SimpleDateFormat("YYYY-MM-DD");
-	    Date date = df.parse("1965-04-20");
-	    System.out.println(df.format(date));;
-	    
-		//DateTimeFormatter.ofPattern("YYYY-MM-DD").format(date);
+	public void debugTesting() throws Exception {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-DD");
+		System.out.println(df.parse("2000-01-01"));
+		System.out.println(df.format(df.parse("2000-01-01")));
 	}
 }

@@ -142,8 +142,11 @@ public class CSV2Padded {
 		}};
 		
 		public static String formatDate(String value) {
-			DateFormat df = new SimpleDateFormat("YYYY-MM-DD");
 		    try {
+				SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+				System.out.println(value);
+				System.out.println(df.parse(value));
+				System.out.println(df.format(df.parse(value)));
 				return df.format(df.parse(value));
 			} catch (ParseException e) {
 				return "";
