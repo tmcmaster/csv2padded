@@ -1,7 +1,5 @@
 package au.id.mcmaster.csv2padded;
 
-import java.util.Date;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
@@ -19,10 +17,10 @@ public class CSV2PaddedTest {
 			String outputFilePadded = "output-file.txt";
 			String outputFileCSV = "output-file.csv";
 			CSV2Padded csv2padded = new CSV2Padded(schemaFile);
-			List<Map<String, String>> data = csv2padded.loadData(inputFile);
+			List<Map<String, String>> data = csv2padded.loadDataMaps(inputFile);
 			List<String> paddedData = csv2padded.convert(data);
 			csv2padded.saveData("src/test/resources/" + outputFilePadded, paddedData);
-			paddedData = csv2padded.getDataList(outputFilePadded);
+			paddedData = csv2padded.loadDataList(outputFilePadded);
 			List<Map<String, String>> resultsMaps = csv2padded.parsePadded(paddedData);
 			csv2padded.saveDataCSV("src/test/resources/" + outputFileCSV, resultsMaps);
 			CSV2Padded.print(data, resultsMaps);

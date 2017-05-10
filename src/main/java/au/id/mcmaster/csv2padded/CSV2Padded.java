@@ -11,12 +11,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.DateFormat;
+import java.io.Reader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +30,7 @@ public class CSV2Padded {
 	}
 
 	public CSV2Padded(String scemaFileName) throws Exception {
-		List<Map<String, String>> schema = getDataMap(scemaFileName);
+		List<Map<String, String>> schema = loadDataMaps(scemaFileName);
 		this.specItems = schema.stream().map(m -> new SpecItem(m)).filter(s -> s.isValid()).collect(toList());
 	}
 	
@@ -51,19 +48,23 @@ public class CSV2Padded {
 	    return data.stream().map(m -> specItems.stream().map(s -> s.format(m.get(s.getName()))).collect(joining(""))).collect(toList());
 	}
 
-	public List<Map<String, String>> loadData(String csvDataFile) throws Exception {
-		return getDataMap(csvDataFile);
+	public List<Map<String, String>> loadDataMaps(String fileName) throws IOException {
+		return loadDataMaps(new InputStreamReader(CSV2Padded.class.getClassLoader().getResourceAsStream(fileName)));
 	}
 	
-	private static List<Map<String, String>> getDataMap(String fileName) throws IOException {
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(CSV2Padded.class.getClassLoader().getResourceAsStream(fileName)))) {
+	public List<Map<String, String>> loadDataMaps(Reader reader) throws IOException {
+		try (BufferedReader br = new BufferedReader(reader)) {
 		    String[] headers = br.readLine().split(",");
 		    return br.lines().map(s -> s.split(",")).map(t -> range(0, t.length).boxed().collect(toMap(i -> headers[i], i -> t[i]))).collect(toList());
 		}		
 	}
 	
-	public List<String> getDataList(String fileName) throws IOException {
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(CSV2Padded.class.getClassLoader().getResourceAsStream(fileName)))) {
+	public List<String> loadDataList(String fileName) throws IOException {
+		return loadDataList(new InputStreamReader(CSV2Padded.class.getClassLoader().getResourceAsStream(fileName)));
+	}
+	
+	public List<String> loadDataList(Reader reader) throws IOException {
+		try (BufferedReader br = new BufferedReader(reader)) {
 		    return br.lines().collect(toList());
 		}		
 	}
